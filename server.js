@@ -13,11 +13,11 @@ const server = app.listen(8080, ()=>{
 server.on("error", error =>console.log(`Error en el servidor ${error}`))
 
 
-app.get('/', (req, res)=>{
+app.get('/productos', (req, res)=>{
   res.send(content.getAll())
-
+ 
 })
 
-app.get('/productos', (req, res)=>{
-  res.send('prueba')
+app.get('/productoRandom', (req, res)=>{
+  res.send(content.getProductRandom())
 })
