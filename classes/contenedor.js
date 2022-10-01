@@ -7,7 +7,7 @@ module.exports = class Contenedor {
     
     getAll(){            
       let array = JSON.parse(fs.readFileSync(`./productos/${this.nombre}.json`)) 
-                       
+      console.log(array)
        return array.length == 0 ? 'No se encontraron elementos dentro del archivo' : array
 
     }
@@ -23,6 +23,7 @@ module.exports = class Contenedor {
       
       let result =  array.map((e)=>{
         if(e.id == randomn){
+          console.log(e)
           return e
         }
       })
