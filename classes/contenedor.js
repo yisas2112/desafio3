@@ -24,13 +24,9 @@ module.exports = class Contenedor {
           rating: objeto.rating,
           stock: objeto.stock,
           brand: objeto.brand,
-          "category": "smartphones",
-          "thumbnail": "https://dummyjson.com/image/i/products/5/thumbnail.jpg",
-          "images": [
-            "https://dummyjson.com/image/i/products/5/1.jpg",
-            "https://dummyjson.com/image/i/products/5/2.jpg",
-            "https://dummyjson.com/image/i/products/5/3.jpg"
-    ]
+          category: objeto.category,
+          thumbnail: objeto.thumbnail,
+          images: objeto.images
         }        
         
         array.push(obj)        
