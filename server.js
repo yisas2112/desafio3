@@ -1,23 +1,18 @@
-const express = require('express')
+const express = require("express");
+const routerProductos = require('./routers/productos')
+
 const app = express()
 
+app.listen(8080, ()=>console.log('Servidor Activo'))
 
-let Contenedor = require('./classes/contenedor.js')
-
-const content = new Contenedor('productos')
-
-const server = app.listen(8080, ()=>{
-  console.log('Servidor escuchando en el puerto 8080')  
-})
-
-server.on("error", error =>console.log(`Error en el servidor ${error}`))
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
 
 
-app.get('/productos', (req, res)=>{
-  res.send(content.getAll())
- 
-})
+app.use('/api', routerProductos)
 
-app.get('/productoRandom', (req, res)=>{
-  res.send(content.getProductRandom())
-})
+
+
+
+
+
