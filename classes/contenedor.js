@@ -9,36 +9,39 @@ module.exports = class Contenedor {
     let obj ={}      
     let array = []
     let lastId = 0
-    let mensaje = ""
-    
-      if(fs.existsSync(`./productos/${this.nombre}.json`)){              
+    let mensaje = "No se pudo agregar el producto"
+
+    //Verificamos que el archivo exista
+    if(fs.existsSync(`./productos/${this.nombre}.json`)){                          
         array = JSON.parse(fs.readFileSync(`./productos/${this.nombre}.json`))
-         array.map((e)=>{          
-          lastId = e.id
-
+        array.map((e)=>{          
+        lastId = e.id
         })
-
-        obj = {
-          id : lastId + 1,
-          title : objeto.title,
-          descripcion : objeto.descripcion,
-          price: objeto.price,
-          discountPercentage: objeto.discountPercentage,
-          rating: objeto.rating,
-          stock: objeto.stock,
-          brand: objeto.brand,
-          category: objeto.category,
-          thumbnail: objeto.thumbnail,
-          images: objeto.images
-        }        
-        
-        array.push(obj)        
-
-        fs.writeFile(`./productos/${this.nombre}.json`, JSON.stringify(array) , err =>{
-          err ? mensaje =  'Hubo un error al agregar el objeto al archivo' : mensaje = 'Se agregó el obj correctamente al json'    
-          return obj
-        })    
-      }else{                  
+        //Verificamos que la cantidad de campos sea el correcto
+        if (Object.keys(objeto).length == 9){          
+          obj = {
+            id : lastId + 1,
+            title : objeto.title,            
+            price: objeto.price,
+            discountPercentage: objeto.discountPercentage,
+            rating: objeto.rating,
+            stock: objeto.stock,
+            brand: objeto.brand,
+            category: objeto.category,
+            thumbnail: objeto.thumbnail,
+            images: objeto.images
+          }        
+          
+          array.push(obj)        
+          
+          fs.writeFile(`./productos/${this.nombre}.json`, JSON.stringify(array), () =>{})
+          
+          mensaje = 'Se agregó correctamente el producto'
+          
+        }else{
+          mensaje = 'Cantidad de Campos inválido'
+        }   
+      }else{                   
           obj = {
             id : lastId + 1,
             title : objeto.title,
@@ -54,19 +57,17 @@ module.exports = class Contenedor {
           }          
           array.push(obj)
           
-          fs.appendFileSync(`./productos/${this.nombre}.json`, JSON.stringify(array) , err =>{
-            err ? mensaje = 'Ocurrió un error al crear el archivo' : mensaje = 'Se creó el archivo con éxito'
-            return mensaje
-          })    
+          fs.appendFileSync(`./productos/${this.nombre}.json`, JSON.stringify(array), () =>{})    
+
+          mensaje = 'Se agregó correctamente el producto'
       }
       
-      
+      return {obj , mensaje}
       
     }
     
     getAll(){            
-      let array = JSON.parse(fs.readFileSync(`./productos/${this.nombre}.json`)) 
-      console.log(array)
+      let array = JSON.parse(fs.readFileSync(`./productos/${this.nombre}.json`))       
        return array.length == 0 ? 'No se encontraron elementos dentro del archivo' : array
 
     }
@@ -81,8 +82,7 @@ module.exports = class Contenedor {
       let randomn = keys[Math.floor(Math.random() * keys.length)]
       
       let result =  array.map((e)=>{
-        if(e.id == randomn){
-          console.log(e)
+        if(e.id == randomn){          
           return e
         }
       })
@@ -90,8 +90,7 @@ module.exports = class Contenedor {
       return result
     }
 
-    getById(id){      
-      console.log(id)
+    getById(id){            
       let array = []
       let dataReturn
       array = JSON.parse(fs.readFileSync(`./productos/${this.nombre}.json`))      
@@ -104,9 +103,22 @@ module.exports = class Contenedor {
         return dataReturn
     }
 
-  
+    updateProduct(id, objecto){
+      console.log(id,objecto)
+      let array = []
+      let dataReturn      
+      array = JSON.parse(fs.readFileSync(`./productos/${this.nombre}.json`))  
+      console.log(Object.keys(objecto))
+      console.log(Object.values(objecto))
+      
+        array.map((data)=>{          
+          if(data.id == id){
+            array[Object.keys(objecto)] = Object.values(objecto)
+          }
+        })
+        
+        return dataReturn
 
-
-
+    }
 
 }

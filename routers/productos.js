@@ -31,9 +31,22 @@ routerProductos.get('/productos/:id', async(req, res)=>{
 })
 
 routerProductos.post('/productos', async(req,res)=>{  
-  let mensaje = await content.save(req.body)
+  let result = await content.save(req.body)
 
-  return mensaje
+  res.json({
+    message: result.mensaje,
+    response: result.obj
+})
+})
+
+
+routerProductos.put('/productos/:id', async(req,res)=>{
+  const {id} = req.params
+  const objeto = req.body  
+
+  let result = content.updateProduct(id, objeto)
+
+  
 })
 
 module.exports = routerProductos
