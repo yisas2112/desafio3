@@ -9,10 +9,13 @@ module.exports = class Contenedor {
     let obj ={}      
     let array = []
     let lastId = 0
-      if(fs.existsSync(`./productos/${this.nombre}.json`)){        
-        array = JSON.parse(fs.readFileSync(`./${this.nombre}.json`))
-        array.map((e)=>{
+    let mensaje = ""
+    
+      if(fs.existsSync(`./productos/${this.nombre}.json`)){              
+        array = JSON.parse(fs.readFileSync(`./productos/${this.nombre}.json`))
+         array.map((e)=>{          
           lastId = e.id
+
         })
 
         obj = {
@@ -32,21 +35,33 @@ module.exports = class Contenedor {
         array.push(obj)        
 
         fs.writeFile(`./productos/${this.nombre}.json`, JSON.stringify(array) , err =>{
-          err ? console.log('Hubo un error al agregar el objeto al archivo') : console.log('Se agregó el obj correctamente al json')         
+          err ? mensaje =  'Hubo un error al agregar el objeto al archivo' : mensaje = 'Se agregó el obj correctamente al json'    
+          return obj
         })    
       }else{                  
           obj = {
+            id : lastId + 1,
             title : objeto.title,
-            price : objeto.price,
-            id : lastId + 1
+            descripcion : objeto.descripcion,
+            price: objeto.price,
+            discountPercentage: objeto.discountPercentage,
+            rating: objeto.rating,
+            stock: objeto.stock,
+            brand: objeto.brand,
+            category: objeto.category,
+            thumbnail: objeto.thumbnail,
+            images: objeto.images
           }          
           array.push(obj)
           
           fs.appendFileSync(`./productos/${this.nombre}.json`, JSON.stringify(array) , err =>{
-            err ? console.log('Ocurrió un error al crear el archivo') : console.log('Se creó el archivo con éxito')
-            
+            err ? mensaje = 'Ocurrió un error al crear el archivo' : mensaje = 'Se creó el archivo con éxito'
+            return mensaje
           })    
       }
+      
+      
+      
     }
     
     getAll(){            

@@ -30,8 +30,10 @@ routerProductos.get('/productos/:id', async(req, res)=>{
   
 })
 
-routerProductos.post('/productos', (req,res)=>{
-  console.log(req.body)
+routerProductos.post('/productos', async(req,res)=>{  
+  let mensaje = await content.save(req.body)
+
+  return mensaje
 })
 
 module.exports = routerProductos
