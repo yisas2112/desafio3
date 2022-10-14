@@ -103,22 +103,38 @@ module.exports = class Contenedor {
         return dataReturn
     }
 
-    updateProduct(id, objecto){
-      console.log(id,objecto)
+    updateProduct(id, objeto){
       let array = []
       let dataReturn      
       array = JSON.parse(fs.readFileSync(`./productos/${this.nombre}.json`))  
-      console.log(Object.keys(objecto))
-      console.log(Object.values(objecto))
       
         array.map((data)=>{          
           if(data.id == id){
-            array[Object.keys(objecto)] = Object.values(objecto)
+            console.log(objeto)
+            console.log(Object.keys(objeto))
+            console.log(Object.values(objeto))
+            array[Object.keys(objeto)] = Object.values(objeto)
+            
+            dataReturn = array
           }
         })
+
         
         return dataReturn
 
+    }
+
+    deleteProduct(id){
+      let array = []
+      let dataReturn      
+      array = JSON.parse(fs.readFileSync(`./productos/${this.nombre}.json`))  
+      
+        array.map((data)=>{          
+          if(data.id == id){
+              array.splice()
+          }
+        })
+      
     }
 
 }

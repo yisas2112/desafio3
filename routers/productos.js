@@ -46,6 +46,7 @@ routerProductos.put('/productos/:id', async(req,res)=>{
 
   let result = content.updateProduct(id, objeto)
 
+  console.log(result)
   
 })
 
