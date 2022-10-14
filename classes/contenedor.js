@@ -1,3 +1,4 @@
+const { Console } = require('console')
 const fs = require('fs')
 
 module.exports = class Contenedor {
@@ -103,38 +104,54 @@ module.exports = class Contenedor {
         return dataReturn
     }
 
-    updateProduct(id, objeto){
+    updateProduct(id, objeto){          
       let array = []
-      let dataReturn      
-      array = JSON.parse(fs.readFileSync(`./productos/${this.nombre}.json`))  
-      
-        array.map((data)=>{          
-          if(data.id == id){
-            console.log(objeto)
-            console.log(Object.keys(objeto))
-            console.log(Object.values(objeto))
-            array[Object.keys(objeto)] = Object.values(objeto)
-            
-            dataReturn = array
-          }
-        })
-
+      let dataReturn
+      let mensaje = ''
+      array = JSON.parse(fs.readFileSync(`./productos/${this.nombre}.json`))        
+      array.map((data)=>{                    
+          if(data.id === parseInt(id)){ 
+            for (const key in objeto) {
+              if(data[key] = key){                                
+                data[key]  = objeto[key] 
+                dataReturn = data
+                mensaje = 'Se actualizó el producto correctamente'
+              }else{
+                mensaje = 'Error al actualizar el producto'
+              }    
+                      
+            }
+          }else{
+            mensaje = 'Producto inexistente'
+          }     
+      })
+      fs.writeFile(`./productos/${this.nombre}.json`, JSON.stringify(array), () =>{})    
         
-        return dataReturn
-
+      return {dataReturn, mensaje}
     }
+
+
+
 
     deleteProduct(id){
       let array = []
       let dataReturn      
+      let mensaje = ''
       array = JSON.parse(fs.readFileSync(`./productos/${this.nombre}.json`))  
+      const indexOfObject = array.findIndex(object => {
+        return object.id === parseInt(id)
+      });      
+      if(indexOfObject > -1){
+        array.splice(indexOfObject, 1);      
+        fs.writeFile(`./productos/${this.nombre}.json`, JSON.stringify(array), () =>{})    
+        mensaje = 'Se eliminó el producto correctamente' 
+      }else{
+        mensaje = 'El producto no existe'
+      } 
       
-        array.map((data)=>{          
-          if(data.id == id){
-              array.splice()
-          }
-        })
       
+      return {mensaje}
+    
     }
 
 }

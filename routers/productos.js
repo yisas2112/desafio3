@@ -41,12 +41,25 @@ routerProductos.post('/productos', async(req,res)=>{
 
 
 routerProductos.put('/productos/:id', async(req,res)=>{
-  const {id} = req.params
+  const {id} = req.params  
   const objeto = req.body  
 
   let result = content.updateProduct(id, objeto)
-
   console.log(result)
+  res.json({
+    message: result.mensaje,
+    response: result.dataReturn
+  })  
+  
+})
+
+routerProductos.delete('/productos/:id', async(req,res)=>{
+  const {id} = req.params  
+  let result = content.deleteProduct(id)
+  console.log(result)
+  res.json({
+    message: result.mensaje  
+  })  
   
 })
 
