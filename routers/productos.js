@@ -4,13 +4,10 @@ const routerProductos = express.Router()
 
 const content = new Contenedor('productos')
 
+
 routerProductos.get('/productos', async (req, res)=>{
-  try{
-    console.log('Entro en get productos')
-    res.send(content.getAll())
-  }catch{
-    res.status(500).send('Hubo un error en el servidor')
-  }
+  res.render('home')    
+  
 })
 
 routerProductos.get('/productos/:id', async(req, res)=>{
@@ -36,7 +33,8 @@ routerProductos.post('/productos', async(req,res)=>{
   res.json({
     message: result.mensaje,
     response: result.obj
-})
+  })
+
 })
 
 
