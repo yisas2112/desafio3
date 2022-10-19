@@ -12,7 +12,7 @@ routerProductos.get('/productos', async (req, res)=>{
 
 routerProductos.get('/productos/listaProductos', async (req, res)=>{
   let result = content.getAll()
-  console.log(result)
+  
   res.render('listproductos',{
     productos : result
   })    
