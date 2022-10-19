@@ -10,6 +10,15 @@ routerProductos.get('/productos', async (req, res)=>{
   
 })
 
+routerProductos.get('/productos/listaProductos', async (req, res)=>{
+  let result = content.getAll()
+  console.log(result)
+  res.render('listproductos',{
+    productos : result
+  })    
+  
+})
+
 routerProductos.get('/productos/:id', async(req, res)=>{
   const {id} = req.params
   const product = await content.getById(id)
@@ -27,13 +36,10 @@ routerProductos.get('/productos/:id', async(req, res)=>{
   
 })
 
-routerProductos.post('/productos', async(req,res)=>{  
-  let result = await content.save(req.body)
-
-  res.json({
-    message: result.mensaje,
-    response: result.obj
-  })
+routerProductos.post('/productos', (req,res)=>{      
+  content.save(req.body)
+  
+  res.redirect("/api/productos")
 
 })
 
