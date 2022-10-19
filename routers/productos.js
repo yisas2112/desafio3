@@ -6,6 +6,7 @@ const content = new Contenedor('productos')
 
 
 routerProductos.get('/productos', async (req, res)=>{
+  console.log('asd')
   res.render('home')    
   
 })

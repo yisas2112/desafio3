@@ -4,6 +4,7 @@
     "express-handlebars": "^6.0.6",
     "handlebars": "^4.7.7",
     "livereload": "^0.9.3",
+    "pug": "^3.0.2",
     "reload": "^3.2.0"
   },
   "scripts": {

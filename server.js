@@ -8,9 +8,13 @@ app.listen(8080, ()=>console.log('Servidor Activo'))
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
-app.engine("handlebars", handlebars.engine())
 app.set('views', path.join(__dirname, 'views'));
-app.set("view engine", "handlebars");
+//Handlebars
+// app.engine("handlebars", handlebars.engine())
+// app.set("view engine", "handlebars");
+
+//Pug
+app.set("view engine", "pug");
 
 app.use('/api', routerProductos)
 
