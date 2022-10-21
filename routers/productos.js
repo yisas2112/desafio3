@@ -5,15 +5,26 @@ const routerProductos = express.Router()
 const content = new Contenedor('productos')
 
 
-routerProductos.get('/productos', async (req, res)=>{
-  console.log('asd')
-  res.render('home')    
+// routerProductos.get('/productos', async (req, res)=>{
+//   res.render('home')      
+// })
+
+
+//ejs
+routerProductos.get('/productos', async (req, res)=>{  
+  let result = content.getAll()
+  console.log(result)
+  res.render('home',{
+    productos : result
+  })
+  
   
 })
 
+
 routerProductos.get('/productos/listaProductos', async (req, res)=>{
   let result = content.getAll()
-  
+  console.log(result)
   res.render('listproductos',{
     productos : result
   })    

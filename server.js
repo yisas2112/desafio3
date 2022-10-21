@@ -14,7 +14,11 @@ app.set('views', path.join(__dirname, 'views'));
 // app.set("view engine", "handlebars");
 
 //Pug
-app.set("view engine", "pug");
+//app.set("view engine", "pug");
+
+//Ejs
+app.set("view engine", "ejs");
+
 
 app.use('/api', routerProductos)
 

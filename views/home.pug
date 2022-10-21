@@ -3,4 +3,29 @@ html
         title="titulo de la pagina" + nombre
     body
         div
-            h1 Bienvenido, !{nombre} !{edad}
+            h1 Bienvenido, !{nombre} !{edad}        
+    <h2>Carga de Productos</h2>
+
+    form(method="post" action="/api/productos")
+        label Nombre del Producto
+        input(type="text" name="title")
+        label Precio
+        input(type="number" name="price")
+        label Porcentaje de Descuento
+        input(type="number" name="discountPercentage")
+        label Rating
+        input(type="number" name="rating")
+        label Stock
+        input(type="number" name="stock")
+        label Marca
+        input(type="text" name="brand")
+        label Categoría
+        input(type="text" name="category")
+        label Thumbnail
+        input(type="text" name="thumbnail")
+        label Imagen
+        input(type="text" name="Imagen")
+        button(type="submit") Enviar
+    
+    
+    a(href="http://localhost:8080/api/productos/listaProductos") Lista de Productos
