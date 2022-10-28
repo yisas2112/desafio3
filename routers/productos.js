@@ -1,8 +1,8 @@
 const express = require('express')
 const Contenedor = require('../classes/contenedor.js')
 const routerProductos = express.Router()
-
 const content = new Contenedor('productos')
+
 
 
 // routerProductos.get('/productos', async (req, res)=>{
@@ -12,8 +12,9 @@ const content = new Contenedor('productos')
 
 //ejs
 routerProductos.get('/productos', async (req, res)=>{  
-  let result = content.getAll()
-  console.log(result)
+
+  req.io.emit("new-message", { content: req.body.content });
+  let result = content.getAll()  
   res.render('home',{
     productos : result
   })

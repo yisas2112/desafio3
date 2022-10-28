@@ -1,26 +1,29 @@
 const express = require("express");
 const routerProductos = require('./routers/productos')
-const handlebars= require("express-handlebars")
-const path = require("path")
 const app = express()
+const {Server} = require("socket.io");
 
-app.listen(8080, ()=>console.log('Servidor Activo'))
+
+
+const PORT = process.env.PORT || 8080;
+const server = app.listen(PORT, ()=>console.log(`listening on port ${PORT}`));
+
+const io = new Server(server)
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
-app.set('views', path.join(__dirname, 'views'));
-//Handlebars
-// app.engine("handlebars", handlebars.engine())
-// app.set("view engine", "handlebars");
 
-//Pug
-//app.set("view engine", "pug");
+app.use((req, res, next)=>{
+  req.io = io
 
-//Ejs
-app.set("view engine", "ejs");
-
+  return next
+})
 
 app.use('/api', routerProductos)
+
+
+
+
 
 
 
